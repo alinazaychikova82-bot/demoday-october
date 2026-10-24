@@ -3,211 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartEdu — Платформа современного образования</title>
-    <style>
-        :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-color: #1e293b;
-            --text-muted: #64748b;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            background: linear-gradient(135deg, #4f46e5, #9333ea);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        header h1 { margin: 0 0 0.5rem 0; font-size: 2.5rem; }
-        header p { margin: 0; font-size: 1.1rem; opacity: 0.9; }
-
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-        }
-
-        .card h3 { margin-top: 0; color: var(--primary); }
-
-        /* Прогресс-бар */
-        .progress-container {
-            background: #e2e8f0;
-            border-radius: 999px;
-            height: 12px;
-            width: 100%;
-            overflow: hidden;
-            margin: 1rem 0;
-        }
-
-        .progress-bar {
-            background: var(--primary);
-            height: 100%;
-            width: 65%; /* Динамическое значение */
-            border-radius: 999px;
-        }
-
-        /* Список курсов */
-        .course-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .course-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        .btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.2s;
-        }
-
-        .btn:hover {
-            background-color: var(--primary-hover);
-        }
-
-        /* Интерактивный блок ИИ-тьютора */
-        .ai-tutor {
-            background: #e0e7ff;
-            border-left: 5px solid var(--primary);
-            padding: 1.5rem;
-            border-radius: 0 12px 12px 0;
-        }
-
-        .ai-input-group {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .ai-input-group input {
-            flex: 1;
-            padding: 0.5rem;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-        }
-    </style>
+    <title>EduFuture — Современное образование</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <h1>SmartEdu 🚀</h1>
-        <p>Платформа адаптивного обучения нового поколения с ИИ-поддержкой</p>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Edu<span class="highlight">Future</span></h1>
+            <p class="subtitle">Платформа цифрового и современного образования</p>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Поиск курса по названию или навыку...">
+            </div>
+        </div>
     </header>
 
-    <div class="container">
-        <!-- Верхняя панель: Статистика и Прогресс -->
-        <div class="dashboard-grid">
-            <div class="card">
-                <h3>Ваш прогресс</h3>
-                <p>Курс: <strong>Искусственный интеллект и Data Science</strong></p>
-                <div class="progress-container">
-                    <div class="progress-bar" id="progressBar"></div>
-                </div>
-                <p><small id="progressText">Пройдено 65% материалов (Модуль 4 из 6)</small></p>
-            </div>
-
-            <div class="card">
-                <h3>Геймификация 🏆</h3>
-                <p>Ваш уровень: <strong>Специалист (Уровень 3)</strong></p>
-                <p>XP (Очки опыта): <span id="xpCount" style="color: var(--primary); font-weight: bold;">1,250 XP</span></p>
-                <p>🔥 Серия дней подряд: <strong>7 дней</strong></p>
-            </div>
+    <main class="container">
+        <div class="filters">
+            <button class="filter-btn active" data-category="all">Все курсы</button>
+            <button class="filter-btn" data-category="IT">IT и Программирование</button>
+            <button class="filter-btn" data-category="Design">Дизайн</button>
+            <button class="filter-btn" data-category="AI">Искусственный интеллект</button>
         </div>
 
-        <!-- Основной контент -->
-        <div class="dashboard-grid">
-            <div class="card" style="grid-column: span 2;">
-                <h3>Мои активные курсы</h3>
-                <ul class="course-list">
-                    <li class="course-item">
-                        <span>🐍 Основы Python и алгоритмы</span>
-                        <button class="btn" onclick="openCourse('Python')">Продолжить</button>
-                    </li>
-                    <li class="course-item">
-                        <span>🤖 Машинное обучение для начинающих</span>
-                        <button class="btn" onclick="openCourse('ML')">Продолжить</button>
-                    </li>
-                    <li class="course-item">
-                        <span>🎨 UI/UX Дизайн и современные интерфейсы</span>
-                        <button class="btn" onclick="openCourse('Design')">Продолжить</button>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        <section class="courses-grid" id="coursesGrid">
+            <!-- Карточки генерируются через JavaScript -->
+        </section>
+    </main>
 
-        <!-- Интерактивный ИИ Тьютор -->
-        <div class="ai-tutor">
-            <h3>🤖 Интерактивный ИИ-Тьютор</h3>
-            <p>Задайте любой вопрос по учебному материалу, и ИИ объяснит его простыми словами или составит план подготовки:</p>
-            <div class="ai-input-group">
-                <input type="text" id="aiQuery" placeholder="Например: Объясни, как работают нейросети простыми словами...">
-                <button class="btn" onclick="askAITutor()">Спросить</button>
-            </div>
-            <p id="aiResponse" style="margin-top: 1rem; font-style: italic; color: #334155;"></p>
-        </div>
-    </div>
+    <footer class="footer">
+        <p>&copy; 2026 EduFuture. Современное образование будущего.</p>
+    </footer>
 
-    <script>
-        // Интерактивная логика ИИ-ассистента (симуляция ответа)
-        function askAITutor() {
-            const query = document.getElementById('aiQuery').value;
-            const responseContainer = document.getElementById('aiResponse');
-            
-            if (!query.trim()) {
-                responseContainer.innerText = "Пожалуйста, введите вопрос.";
-                return;
-            }
-
-            responseContainer.innerText = "ИИ анализирует ваш вопрос и подбирает материалы...";
-            
-            setTimeout(() => {
-                responseContainer.innerText = `Ответ ИИ: "${query}" — это ключевая концепция. Представьте её как цепочку шагов, где каждый элемент передает данные дальше... (Рекомендация: пройдите модуль №3 повторно).`;
-            }, 1000);
-        }
-
-        function openCourse(courseName) {
-            alert(`Запуск интерактивного модуля курса: ${courseName}. Приятного обучения!`);
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+    color: #212529;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header {
+    background: linear-gradient(135deg, #4f46e5, #9333ea);
+    color: white;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.logo {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.highlight {
+    color: #38bdf8;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.search-bar input {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: none;
+    font-size: 1rem;
+    outline: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    border: 1px solid #4f46e5;
+    background: white;
+    color: #4f46e5;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.filter-btn.active, .filter-btn:hover {
+    background: #4f46e5;
+    color: white;
+}
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding-bottom: 40px;
+}
+
+.course-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+}
+
+.course-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    background: #e0e7ff;
+    color: #4f46e5;
+    padding: 4px 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.course-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+
+.course-desc {
+    color: #6b7280;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.course-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f3f4f6;
+    padding-top: 15px;
+}
+
+.course-price {
+    font-weight: bold;
+    color: #111827;
+}
+
+.enroll-btn {
+    background: #4f46e5;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.enroll-btn:hover {
+    background: #4338ca;
+}
+
+.footer {
+    margin-top: auto;
+    background: #1f2937;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9rem;
+}
+const courses = [
+    {
+        id: 1,
+        title: "Веб-разработчик с нуля",
+        category: "IT",
+        description: "Изучите HTML5, CSS3, JavaScript и создавайте современные сайты.",
+        price: "24 900 ₽"
+    },
+    {
+        id: 2,
+        title: "UI/UX Дизайн и Figma",
+        category: "Design",
+        description: "Проектируйте удобные интерфейсы и соберите сильное портфолио.",
+        price: "19 900 ₽"
+    },
+    {
+        id: 3,
+        title: "Нейросети для жизни и работы",
+        category: "AI",
+        description: "Как использовать ChatGPT, Midjourney и LLM в ежедневных задачах.",
+        price: "14 900 ₽"
+    },
+    {
+        id: 4,
+        title: "Python-программист",
+        category: "IT",
+        description: "Пишите скрипты, автоматизируйте процессы и создавайте бэкенд.",
+        price: "29 900 ₽"
+    },
+    {
+        id: 5,
+        title: "Графический дизайн 2.0",
+        category: "Design",
+        description: "Основы композиции, типографики и работы в Adobe Illustrator.",
+        price: "17 500 ₽"
+    },
+    {
+        id: 6,
+        title: "Prompt-инжиниринг",
+        category: "AI",
+        description: "Продвинутая работа с большими языковыми моделями.",
+        price: "12 000 ₽"
+    }
+];
+
+const coursesGrid = document.getElementById('coursesGrid');
+const searchInput = document.getElementById('searchInput');
+const filterButtons = document.querySelectorAll('.filter-btn');
+
+let activeCategory = 'all';
+
+function renderCourses() {
+    const searchQuery = searchInput.value.toLowerCase().trim();
+
+    const filtered = courses.filter(course => {
+        const matchesCategory = activeCategory === 'all' || course.category === activeCategory;
+        const matchesSearch = course.title.toLowerCase().includes(searchQuery) || 
+                              course.description.toLowerCase().includes(searchQuery);
+        return matchesCategory && matchesSearch;
+    });
+
+    coursesGrid.innerHTML = '';
+
+    if (filtered.length === 0) {
+        coursesGrid.innerHTML = <p style="grid-column: 1/-1; text-align: center; color: #6b7280; padding: 40px 0;">По вашему запросу ничего не найдено.</p>;
+        return;
+    }
+
+    filtered.forEach(course => {
+        const card = document.createElement('div');
+        card.className = 'course-card';
+        card.innerHTML = `
+            <div>
+                <span class="course-badge">${course.category}</span>
+                <h3 class="course-title">${course.title}</h3>
+                <p class="course-desc">${course.description}</p>
+            </div>
+            <div class="course-footer">
+                <span class="course-price">${course.price}</span>
+                <button class="enroll-btn" onclick="alert('Заявка на курс «${course.title}» отправлена!')">Записаться</button>
+            </div>
+        `;
+        coursesGrid.appendChild(card);
+    });
+}
+
+searchInput.addEventListener('input', renderCourses);
+
+filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeCategory = btn.dataset.category;
+        renderCourses();
+    });
+});
+
+// Первичный вывод
+renderCourses();
